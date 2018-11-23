@@ -28,7 +28,7 @@ class App extends Component {
       this.state.hogs.slice()
   
     if (this.state.sortByWeight) {
-      filteredHogs.sort((a,b) => a.weight - b.weight)
+      filteredHogs.sort((a,b) => a.weightRatio - b.weightRatio)
     }
   
     if (this.state.sortByName) {
