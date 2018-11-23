@@ -1,4 +1,4 @@
-const hogs = [
+const hogsFromApi = [
   {
     name: 'Mudblood',
     specialty: 'Mediocre magic',
@@ -96,4 +96,4 @@ const hogs = [
   }
 ];
 
-export default hogs;
+export default hogsFromApi;

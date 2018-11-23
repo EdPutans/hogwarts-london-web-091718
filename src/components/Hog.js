@@ -1,34 +1,55 @@
 import React from 'react'
-import hogs from './porkers_data'
-import { Card, Menu, Image, Visibility } from 'semantic-ui-react'
+import { Card, Image, Label } from 'semantic-ui-react'
+import API from './Api';
 
-export default class Hog extends React.Component{
+export default class Hog extends React.Component {
+
     constructor() {
         super()
         this.state = {
-        visibility: false
-    }
-}
-
-    handleClick = () => {
-        this.setState({ visibility: !this.state.visibility })
+            visibility: false
+        }
     }
 
-    render(){
-      return <div>
-          <Card onClick = {this.handleClick}>
-              <Image src='https://images.pexels.com/photos/110820/pexels-photo-110820.jpeg?auto=compress&cs=tinysrgb&h=350'></Image>
-              <Card.Content>
-                <Card.Header>{ this.props.hog.name }</Card.Header>
-                {this.state.visibility ? (
-                <div >
-                    <Card.Meta>{this.props.hog.specialty}</Card.Meta>
-                    <Card.Description></Card.Description>
-                </div>
-                ) : "" }
-            </Card.Content>
-        </Card >
-      </div>
-      
+    handleClick(){
+        this.setState({
+            visibility: !this.state.visibility
+        })
+    }
+
+    //  getRandomInt() {
+    //     return Math.floor(Math.random() * Math.floor(19));
+    //   }
+
+    // getPic () {
+    //     let num = this.getRandomInt()
+    //     return API.getImages().then(resp => resp.results[num].url)
+    // }
+
+    componentDidMount() {
+        API.getRandomGif()
+            .then(imgUrl => this.setState({ imgUrl }))
+
+    }
+
+    render() {
+        return(
+            <div>
+                <Card onClick={() =>  this.handleClick()}>
+                    <Image src={this.state.imgUrl}/>
+                    <Card.Content>
+                        <Card.Header>{this.props.hog.name}</Card.Header>
+                        {this.state.visibility
+                        ? (<div>
+                            <Label color="blue"><Card.Meta >{this.props.hog.weight}</Card.Meta></Label>
+                            <Label color="yellow"><Card.Meta >{this.props.hog.medal}</Card.Meta></Label>
+                            <Card.Description >{this.props.hog.specialty}</Card.Description>
+                        </div>)
+                        : ""
+                        }
+                    </Card.Content>
+                </Card>
+            </div>
+        )
     }
 }
